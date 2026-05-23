@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalCalc - Calculadoras de Saúde</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+
+    <header class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white py-8 text-center shadow-md">
+        <h1 class="text-4xl font-bold tracking-wide">VitalCalc</h1>
+        <p class="text-emerald-100 mt-2">Sua mente e corpo em equilíbrio dinâmico</p>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+            <img src="https://images.unsplash.com/photo-1518481612222-68bbe828ecd1?auto=format&fit=crop&w=600&q=80" alt="Estilo de vida saudável" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <div class="flex items-center space-x-2 mb-4">
+                    <span class="p-2 bg-emerald-100 text-emerald-600 rounded-lg text-xl">⚖️</span>
+                    <h2 class="text-2xl font-bold text-slate-700">Índice de Massa Corporal (IMC)</h2>
+                </div>
+                <p class="text-sm text-slate-500 mb-6">Fórmula: $IMC = \frac{peso}{altura^2}$</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Peso (kg):</label>
+                        <input type="number" id="imc-peso" placeholder="Ex: 70" class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-emerald-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Altura (m):</label>
+                        <input type="number" id="imc-altura" step="0.01" placeholder="Ex: 1.75" class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-emerald-500 outline-none">
+                    </div>
+                    <button onclick="calcularIMC()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-lg transition">Calcular</button>
+                    <div id="imc-resultado" class="mt-4 p-3 rounded-lg hidden font-semibold text-center"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+            <img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=600&q=80" alt="Copo de água" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <div class="flex items-center space-x-2 mb-4">
+                    <span class="p-2 bg-blue-100 text-blue-600 rounded-lg text-xl">💧</span>
+                    <h2 class="text-2xl font-bold text-slate-700">Consumo Diário de Água</h2>
+                </div>
+                <p class="text-sm text-slate-500 mb-6">Fórmula base: $35ml$ por kg de peso.</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Seu Peso (kg):</label>
+                        <input type="number" id="agua-peso" placeholder="Ex: 70" class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <button onclick="calcularAgua()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition">Calcular</button>
+                    <div id="agua-resultado" class="mt-4 p-3 bg-blue-50 rounded-lg text-blue-800 hidden font-semibold text-center"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+            <img src="https://images.unsplash.com/photo-1615461066841-6116ecdccd04?auto=format&fit=crop&w=600&q=80" alt="Coração/Sangue abstrato" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <div class="flex items-center space-x-2 mb-4">
+                    <span class="p-2 bg-red-100 text-red-600 rounded-lg text-xl">❤️</span>
+                    <h2 class="text-2xl font-bold text-slate-700">Volume de Sangue Estimado</h2>
+                </div>
+                <p class="text-sm text-slate-500 mb-6">Baseia-se na média de $70ml$ de sangue por kg (Fórmula de Nadler simplificada).</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Seu Peso (kg):</label>
+                        <input type="number" id="sangue-peso" placeholder="Ex: 70" class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-red-500 outline-none">
+                    </div>
+                    <button onclick="calcularSangue()" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition">Calcular</button>
+                    <div id="sangue-resultado" class="mt-4 p-3 bg-red-50 rounded-lg text-red-800 hidden font-semibold text-center"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" alt="Alimentos ricos em proteína" class="w-full h-48 object-cover">
+            <div class="p-6">
+                <div class="flex items-center space-x-2 mb-4">
+                    <span class="p-2 bg-amber-100 text-amber-600 rounded-lg text-xl">🍗</span>
+                    <h2 class="text-2xl font-bold text-slate-700">Meta de Proteína Diária</h2>
+                </div>
+                <p class="text-sm text-slate-500 mb-4">Varia de acordo com o seu nível de atividade física diária.</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Seu Peso (kg):</label>
+                        <input type="number" id="proteina-peso" placeholder="Ex: 70" class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-amber-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Nível de Atividade:</label>
+                        <select id="proteina-fator" class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-amber-500 outline-none bg-white">
+                            <option value="0.8">Sedentário (0.8g/kg)</option>
+                            <option value="1.2">Atividade Moderada (1.2g/kg)</option>
+                            <option value="1.6">Ativo / Musculação leve (1.6g/kg)</option>
+                            <option value="2.0">Atleta / Hipertrofia intensa (2.0g/kg)</option>
+                        </select>
+                    </div>
+                    <button onclick="calcularProteina()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-lg transition">Calcular</button>
+                    <div id="proteina-resultado" class="mt-4 p-3 bg-amber-50 rounded-lg text-amber-800 hidden font-semibold text-center"></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="text-center py-8 text-sm text-slate-400 border-t border-slate-200 mt-12">
+        <p>VitalCalc © 2026 - Desenvolvido com foco no seu bem-estar.</p>
+    </footer>
+
+    <script>
+        // 1. Cálculo de IMC
+        function calcularIMC() {
+            const peso = parseFloat(document.getElementById('imc-peso').value);
+            const altura = parseFloat(document.getElementById('imc-altura').value);
+            const resultadoDiv = document.getElementById('imc-resultado');
+
+            if (!peso || !altura) {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+
+            const imc = (peso / (altura * altura)).toFixed(1);
+            let classificacao = '';
+            let classeCor = '';
+
+            if (imc < 18.5) {
+                classificacao = 'Abaixo do peso';
+                classeCor = 'bg-yellow-100 text-yellow-800';
+            } else if (imc < 25) {
+                classificacao = 'Peso ideal (Parabéns!)';
+                classeCor = 'bg-emerald-100 text-emerald-800';
+            } else if (imc < 30) {
+                classificacao = 'Sobrepeso';
+                classeCor = 'bg-orange-100 text-orange-800';
+            } else {
+                classificacao = 'Obesidade';
+                classeCor = 'bg-red-100 text-red-800';
+            }
+
+            resultadoDiv.className = `mt-4 p-3 rounded-lg font-semibold text-center ${classeCor}`;
+            resultadoDiv.innerHTML = `Seu IMC é <strong>${imc}</strong><br><span class="text-sm font-normal">${classificacao}</span>`;
+            resultadoDiv.classList.remove('hidden');
+        }
+
+        // 2. Cálculo de Água
+        function calcularAgua() {
+            const peso = parseFloat(document.getElementById('agua-peso').value);
+            const resultadoDiv = document.getElementById('agua-resultado');
+
+            if (!peso) {
+                alert('Por favor, insira o seu peso!');
+                return;
+            }
+
+            const totalAguaMl = peso * 35;
+            const totalLitros = (totalAguaMl / 1000).toFixed(2);
+
+            resultadoDiv.innerHTML = `Você deve beber aproximadamente <strong>${totalLitros} Litros</strong> de água por dia.`;
+            resultadoDiv.classList.remove('hidden');
+        }
+
+        // 3. Cálculo de Volume de Sangue
+        function calcularSangue() {
+            const peso = parseFloat(document.getElementById('sangue-peso').value);
+            const resultadoDiv = document.getElementById('sangue-resultado');
+
+            if (!peso) {
+                alert('Por favor, insira o seu peso!');
+                return;
+            }
+
+            // Média aproximada de 70ml por kg
+            const volumeMl = peso * 70;
+            const volumeLitros = (volumeMl / 1000).toFixed(1);
+
+            resultadoDiv.innerHTML = `Seu corpo possui cerca de <strong>${volumeLitros} Litros</strong> de sangue.`;
+            resultadoDiv.classList.remove('hidden');
+        }
+
+        // 4. Cálculo de Proteína
+        function calcularProteina() {
+            const peso = parseFloat(document.getElementById('proteina-peso').value);
+            const fator = parseFloat(document.getElementById('proteina-fator').value);
+            const resultadoDiv = document.getElementById('proteina-resultado');
+
+            if (!peso) {
+                alert('Por favor, insira o seu peso!');
+                return;
+            }
+
+            const totalProteina = (peso * fator).toFixed(0);
+
+            resultadoDiv.innerHTML = `Sua meta diária recomendada é de <strong>${totalProteina}g</strong> de proteína.`;
+            resultadoDiv.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
